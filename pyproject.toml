@@ -1,0 +1,67 @@
+[project]
+name = "planty"
+version = "0.1.0"
+description = "Task management system"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "aiobotocore>=2.16.1",
+    "aiosqlite>=0.20.0",
+    "alembic>=1.14.0",
+    "asyncpg>=0.30.0",
+    "coverage>=7.6.10",
+    "docker>=7.1.0",
+    "fastapi-users[sqlalchemy]>=14.0.0",
+    "fastapi[all]>=0.115.6",
+    "gunicorn>=23.0.0",
+    "loguru>=0.7.3",
+    "mypy>=1.14.0",
+    "pytest-mock>=3.14.0",
+    "python-dateutil>=2.9.0.post0",
+    "sqlalchemy>=2.0.36",
+    "typer>=0.15.1",
+    "types-aiobotocore[s3]>=2.16.1",
+    "types-docker>=7.1.0.20241229",
+    "types-python-dateutil>=2.9.0.20241206",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pyinstrument>=5.0.0",
+    "pytest>=8.3.4",
+    "pytest-asyncio>=0.25.0",
+    "pytest-cov>=6.0.0",
+    "pytest-instafail>=0.5.0",
+    "pytest-randomly>=3.16.0",
+    "pytest-xdist>=3.6.1",
+    "ruff>=0.8.4",
+]
+
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+# Do not hide stdout while running tests
+addopts = "-s -v --instafail --nf"
+filterwarnings = [
+    # This's triggered by pytest-asyncio,
+    # which calls deprecated asyncio.get_event_loop() method
+    # ref: https://github.com/pytest-dev/pytest-asyncio/issues/757
+    "ignore:There is no current event loop",
+    # Ignore DeprecationWarning related to Future.cancel() in anyio/_asyncio.py
+    "ignore:Passing 'msg' argument to (Future|Task).cancel.*:DeprecationWarning",
+]
+testpaths = ["planty"]
+
+[tool.ruff]
+extend-exclude = ["alembic/versions"]
+
+[tool.mypy]
+explicit_package_bases = true
+strict = true
+allow_redefinition = true
+exclude = "alembic/"
+plugins =  ["pydantic.mypy"]
+
+[tool.coverage.run]
+concurrency = ["greenlet", "thread"]

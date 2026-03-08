@@ -1,0 +1,17 @@
+{
+  "users": [],
+  "sections": [
+    {
+      "title": "Tasks for later",
+      "user_id": "38df4136-36b2-4171-8459-27f411af8323",
+      "parent_id": null
+    }
+  ],
+  "tasks": [
+    {
+      "user_id": "38df4136-36b2-4171-8459-27f411af8323",
+      "title": "Go to the gym",
+      "description": "💪🏻"
+    }
+  ]
+}
